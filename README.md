@@ -5,9 +5,9 @@ Replicate to generate apparel product-view images in batches — with a
 quality-check layer that catches fidelity errors before an image is approved.
 
 > One line: *I built a terminal-run Python pipeline that sends garment images
-> to cloud-hosted models on Replicate and returns clean, catalogue-ready
-> product views at volume, plus the check that catches AI errors before they
-> go live.*
+> to cloud-hosted models on Replicate — primarily Nano Banana Pro (Google's
+> Gemini 3 Pro image model) — and returns clean, catalogue-ready product views
+> at volume, plus the check that catches AI errors before they go live.*
 
 ---
 
@@ -21,11 +21,11 @@ cost and turnaround.
 ## The approach
 
 A headless script runs from the terminal, takes a folder of garment images,
-and processes them in batches through a cloud-hosted model, returning a clean
+and processes them in batches through cloud-hosted models, returning a clean
 product view for each.
 
-- **Generation:** cloud-hosted model(s) on **Replicate**, called via the
-  Replicate API — `[fill in the specific model you call, e.g. your model slug]`
+- **Generation:** cloud-hosted models on **Replicate** (multi-model), primarily
+  **Nano Banana Pro** — Google's Gemini 3 Pro image model (`google/nano-banana-pro`)
 - **Orchestration:** a terminal-run Python script that batches the inputs and
   handles retries, logging, and output routing — no GUI, nothing to click
 - **Config & secrets:** API token and settings read from environment variables
@@ -40,16 +40,16 @@ scales with the batch instead of being capped by one machine.
 
 ```
 [input folder of garment images]
-          │
-          ▼
-[terminal Python script]  ──►  [Replicate API]  ──►  [cloud-hosted model]
-          │                                               │
-          ▼                                               ▼
-[quality / fidelity check]  ◄───────────────────────  [generated product view]
-          │
-   ┌──────┴───────┐
-   ▼              ▼
-[approved]    [_rejected — held for review]
+          |
+          v
+[terminal Python script]  -->  [Replicate API]  -->  [Nano Banana Pro / other models]
+          |                                               |
+          v                                               v
+[quality / fidelity check]  <---------------------  [generated product view]
+          |
+   +------+-------+
+   v              v
+[approved]    [_rejected -- held for review]
 ```
 
 ## Quality control
@@ -62,6 +62,23 @@ never reaches the live catalogue.
 
 *(This check is the part I'm proudest of — it's what makes the speed usable
 rather than risky.)*
+
+## How it grew
+
+This started as a solo test — a single terminal script to see whether
+cloud-hosted models could produce usable apparel product views at volume.
+It worked, and it grew from there into team tooling I led:
+
+- **Terminal batch pipeline** — the core: a headless, cloud-backed script that
+  processes garments in bulk with a quality gate.
+- **UXP Photoshop plugin** — brought the pipeline into Photoshop so the team
+  could run it inside the software they already work in, rather than at the
+  command line.
+- **Capture One integration** — connected the pipeline into the capture and
+  post workflow, so generation and checks sit where the images already live.
+
+The point of the plugin and integration was adoption: moving from a prototype
+one person ran, to tooling the team uses in their day-to-day software.
 
 ## Results
 
@@ -82,7 +99,7 @@ rather than risky.)*
 ## Running it
 
 ```bash
-# Set your Replicate token as an environment variable — never hardcode it
+# Set your Replicate token as an environment variable -- never hardcode it
 export MODEL_API_KEY="your-replicate-token"
 
 python apparel_product_view.py --input ./input --output ./output

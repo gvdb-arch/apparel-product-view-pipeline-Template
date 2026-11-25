@@ -1,0 +1,17 @@
+# Apparel Product View Pipeline — dependencies
+#
+# The template script itself uses only the Python standard library.
+# These packages are what you'll need once generate_image() is wired
+# to Replicate and you're downloading / handling the returned images.
+#
+# Versions are intentionally left unpinned here. Once you've installed
+# and tested, lock exact versions for a reproducible repo by running:
+#
+#     pip freeze > requirements.txt
+#
+# (or pin manually, e.g. replicate==<the version you installed>)
+
+replicate        # official Replicate Python client — runs the cloud-hosted models
+requests         # download generated images from the returned URLs
+Pillow           # open, check and save images locally
+python-dotenv    # load secrets from a local .env file (never commit the .env)

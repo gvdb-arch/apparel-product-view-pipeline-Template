@@ -1,0 +1,41 @@
+# ─── Secrets — NEVER commit these ───────────────────────────────
+.env
+.env.*
+*.key
+secrets/
+credentials*
+*token*
+
+# ─── Local pipeline I/O — keep sample data out of the repo ──────
+# (commit only a few hand-picked, non-proprietary before/after
+#  samples under examples/ — ignore the working folders.)
+input/
+output/
+_rejected/
+*.tmp
+
+# ─── Python ─────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+.Python
+build/
+dist/
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# ─── macOS ──────────────────────────────────────────────────────
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+
+# ─── Editors / IDEs ─────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo

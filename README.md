@@ -85,20 +85,22 @@ one person ran, to tooling the team uses in their day-to-day software.
 > Fill these in with your own real figures. Leave a line out rather than
 > estimate it — one true number is worth more than five guessed ones.
 
-- **Throughput:** `[e.g. X images per batch / per run]`
-- **Turnaround:** `[traditional process vs pipeline]`
-- **Runs on:** `[your environment]`
+- **Throughput:** `Avg run = 40 images (styles) - 10min`
+- **Turnaround:** `Eliminated full day shoot - Cost and Retouch savings - around $40 per style`
+- **Runs on:** `Python - leveraging Replicate LLM models`
 - **Before / after:**
-
+  
 | Input | Generated product view |
 |-------|------------------------|
 | ![input](examples/input_01.jpg) | ![output](examples/output_01.jpg) |
+<img width="1200" height="1600" alt="USETHESE_15" src="https://github.com/user-attachments/assets/9fde7339-5b78-4f6e-a034-31ad0fd09e55" /> 
+<img width="2592" height="3456" alt="USETHESE_15_0" src="https://github.com/user-attachments/assets/7af8a4e7-584e-4898-8fd4-01dbfb26e3fd" />
 
 *(Use non-proprietary sample garments for the public examples.)*
 
 ## Running it
 
-```bash
+```
 # Set your Replicate token as an environment variable -- never hardcode it
 export MODEL_API_KEY="your-replicate-token"
 
